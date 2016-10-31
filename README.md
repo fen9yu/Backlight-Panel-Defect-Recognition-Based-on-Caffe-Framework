@@ -14,5 +14,8 @@ The folder should include images starting with "a" and "b" correspondingly. e.g.
   `$ python ../cut_img_mark_defect.py`  
    
    
+* Use `cut_img_mark_defect_only1.py` to only cut and mark defected premarked images for training, use it in the same way as `cut_img_mark_defect.py`  
+
+	 
 * Use `cut_img.py` to cut "raw" images.  
 It will create a folder for every "raw" image to put the cut images. May be the behavor will be changed later.  
