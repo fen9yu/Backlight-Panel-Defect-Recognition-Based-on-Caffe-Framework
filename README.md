@@ -1,5 +1,5 @@
 # Backlight-Panel-Defect-Recognition-Based-on-Caffe-Framework
-UM-SJTU JI VE450 capstone project
+UM-SJTU JI VE450 Capstone Project
 
 * Use `cut_img_mark_defect.py` to cut and mark premarked images for training.  
   * Put the images into directories by date. e.g.: `2016-9-17`  
