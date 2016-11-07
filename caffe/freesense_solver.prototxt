@@ -20,7 +20,7 @@ display: 100
 max_iter: 3000
 # snapshot intermediate results
 snapshot: 1000
-snapshot_prefix: "snapshot_10_25_v0"
+snapshot_prefix: "snapshot_201611071826"
 # solver mode: CPU or GPU
 solver_mode: GPU
 # debug_info : true
