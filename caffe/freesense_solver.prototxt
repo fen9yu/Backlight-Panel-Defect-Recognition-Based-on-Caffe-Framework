@@ -22,5 +22,5 @@ max_iter: 3000
 snapshot: 1000
 snapshot_prefix: "snapshot_10_25_v0"
 # solver mode: CPU or GPU
-solver_mode: CPU
+solver_mode: GPU
 # debug_info : true
