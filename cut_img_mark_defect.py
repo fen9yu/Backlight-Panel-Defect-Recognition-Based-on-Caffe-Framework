@@ -54,7 +54,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				#mark defect for cut images 0/1
 				flag=0
 				for point in defect:
-					if point[0]>i*64 and point[0]<(i+1)*64 and point[1]>j*64 and point[1]<(j+1)*64:
+					if point[0]>i*side and point[0]<(i+1)*side and point[1]>j*side and point[1]<(j+1)*side:
 						f.write(imgname+' '+str(1)+'\n')
 						flag=1
 						break
