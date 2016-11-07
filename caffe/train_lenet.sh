@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-~/caffe/caffe/build/tools/caffe train --solver=examples/images/freesense/freesense_solver.prototxt $@
+~/caffe/caffe/build/tools/caffe train --solver=freesense_solver.prototxt $@
