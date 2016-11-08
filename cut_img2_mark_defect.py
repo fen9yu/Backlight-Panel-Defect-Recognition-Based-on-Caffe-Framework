@@ -43,7 +43,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			seg.append([])
 			while remain_h >= side:
 				seg[i].append(img[side*i+side/2:side*(i+1)+side/2,side*j+side/2:side*(j+1)+side/2])
-				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
+				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'_2'+'.bmp'
 				remain_h-=side
 				if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
