@@ -19,3 +19,10 @@ The folder should include images starting with "a" and "b" correspondingly. e.g.
 	 
 * Use `cut_img.py` to cut "raw" images.  
 It will create a folder for every "raw" image to put the cut images. May be the behavor will be changed later.  
+
+* Use `choose.py` to randomly choose defect and normal images by a certain rate (default==5).  
+Use this script after you cut images by using `cut_img*.py` in the same folder. It will generate a `result.txt` from `train.txt`.  
+	* e.g.:  
+	`$ cd 2016-9-17`   
+	`$python ../choose.py`
+
