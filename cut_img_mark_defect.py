@@ -9,8 +9,8 @@ side=64 #the length of side for cutting images
 #the offset of the starting point
 if len(sys.argv)==1:
 	offset=0
-else if len(sys.argv)==2:
-	offset=sys.argv[1]
+elif len(sys.argv)==2:
+	offset=int(sys.argv[1])
 else:
 	print("too much arguments")
 
@@ -51,7 +51,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			seg.append([])
 			while remain_h >= side:
 				seg[i].append(img[side*i+offset:side*(i+1)+offset,side*j+offset:side*(j+1)+offset])
-				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+offset+'.bmp'
+				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+str(offset)+'.bmp'
 				remain_h-=side
 				if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
