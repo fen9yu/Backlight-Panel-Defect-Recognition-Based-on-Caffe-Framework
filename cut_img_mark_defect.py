@@ -2,9 +2,17 @@ import numpy as np
 import cv2
 import os
 import re
+import sys
 from diffdetect import imdiff
 
 side=64 #the length of side for cutting images
+#the offset of the starting point
+if len(sys.argv)==1:
+	offset=0
+else if len(sys.argv)==2:
+	offset=sys.argv[1]
+else:
+	print("too much arguments")
 
 #get all the files/directory in the current directory
 files=os.listdir("./")
@@ -33,8 +41,8 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		#make a directory for each image and go into the directory
 		#os.mkdir('_'+image)
 		#os.chdir("./_"+image)
-		remain_v=img.shape[0]
-		remain_h=img.shape[1]
+		remain_v=img.shape[0]-offset
+		remain_h=img.shape[1]-offset
 		i=0
 		j=0
 
@@ -42,8 +50,8 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		while remain_v >= side:
 			seg.append([])
 			while remain_h >= side:
-				seg[i].append(img[side*i:side*(i+1),side*j:side*(j+1)])
-				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
+				seg[i].append(img[side*i+offset:side*(i+1)+offset,side*j+offset:side*(j+1)+offset])
+				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+offset+'.bmp'
 				remain_h-=side
 				if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
@@ -54,7 +62,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				#mark defect for cut images 0/1
 				flag=0
 				for point in defect:
-					if point[0]>i*side and point[0]<(i+1)*side and point[1]>j*side and point[1]<(j+1)*side:
+					if point[0]>i*side+offset and point[0]<(i+1)*side+offset and point[1]>j*side+offset and point[1]<(j+1)*side+offset:
 						f.write(imgname+' '+str(1)+'\n')
 						flag=1
 						break
@@ -65,4 +73,3 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			remain_h=img.shape[1]
 			j=0
 			i+=1
-
