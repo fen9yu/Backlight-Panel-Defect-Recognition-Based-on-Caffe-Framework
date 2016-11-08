@@ -5,6 +5,7 @@ import re
 from diffdetect import imdiff
 
 side=64 #the length of side for cutting images
+offset=32 #the offset of the starting point
 
 #get all the files/directory in the current directory
 files=os.listdir("./")
@@ -33,8 +34,8 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		#make a directory for each image and go into the directory
 		#os.mkdir('_'+image)
 		#os.chdir("./_"+image)
-		remain_v=img.shape[0]-side/2
-		remain_h=img.shape[1]-side/2
+		remain_v=img.shape[0]-offset
+		remain_h=img.shape[1]-offset
 		i=0
 		j=0
 
@@ -42,8 +43,8 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		while remain_v >= side:
 			seg.append([])
 			while remain_h >= side:
-				seg[i].append(img[side*i+side/2:side*(i+1)+side/2,side*j+side/2:side*(j+1)+side/2])
-				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+32'+'.bmp'
+				seg[i].append(img[side*i+offset:side*(i+1)+offset,side*j+offset:side*(j+1)+offset])
+				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+offset+'.bmp'
 				remain_h-=side
 				if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
@@ -54,7 +55,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				#mark defect for cut images 0/1
 				flag=0
 				for point in defect:
-					if point[0]>i*side+side/2 and point[0]<(i+1)*side+side/2 and point[1]>j*side+side/2 and point[1]<(j+1)*side+side/2:
+					if point[0]>i*side+offset and point[0]<(i+1)*side+offset and point[1]>j*side+offset and point[1]<(j+1)*side+offset:
 						f.write(imgname+' '+str(1)+'\n')
 						flag=1
 						break
