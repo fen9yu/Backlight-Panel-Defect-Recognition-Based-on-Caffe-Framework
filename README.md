@@ -26,5 +26,5 @@ It will create a folder for every "raw" image to put the cut images. May be the 
 Use this script after you cut images by using `cut_img*.py` in the same folder. It will generate a `result.txt` from `train.txt`.  
 	* e.g.:  
 	`$ cd example/2016-9-17`   
-	`$python ../choose.py`
+	`$ python ../choose.py`
 
