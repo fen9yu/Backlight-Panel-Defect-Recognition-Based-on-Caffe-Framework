@@ -6,6 +6,7 @@ import sys
 from diffdetect import imdiff
 
 side=64 #the length of side for cutting images
+margin=3 #if defects are in the range of margin, it will not be marked neither 0 nor 1. To improve accuracy.
 #the offset of the starting point
 if len(sys.argv)==1:
 	offset=0
@@ -63,7 +64,8 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				flag=0
 				for point in defect:
 					if point[0]>i*side+offset and point[0]<(i+1)*side+offset and point[1]>j*side+offset and point[1]<(j+1)*side+offset:
-						f.write(imgname+' '+str(1)+'\n')
+						if point[0]>i*side+offset+margin and point[0]<(i+1)*side+offset-margin and point[1]>j*side+offset+margin and point[1]<(j+1)*side+offset-margin:
+							f.write(imgname+' '+str(1)+'\n')
 						flag=1
 						break
 				if flag == 0:
