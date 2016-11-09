@@ -68,6 +68,8 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 							f.write(imgname+' '+str(1)+'\n')
 						flag=1
 						break
+					elif point[0]>i*side+offset-margin and point[0]<(i+1)*side+offset+margin and point[1]>j*side+offset-margin and point[1]<(j+1)*side+offset+margin:
+						flag=-1
 				if flag == 0:
 					f.write(imgname+' '+str(0)+'\n')
 				j+=1
