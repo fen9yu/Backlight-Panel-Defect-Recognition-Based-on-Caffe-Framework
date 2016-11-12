@@ -1,0 +1,5 @@
+3a4
+> #include <iostream>
+82a84,85
+>         // print one line as below!!
+>         std::cout << "predicted label: " << bottom_data_vector[k].second << "exact label: " << label_value << "\n";
