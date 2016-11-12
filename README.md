@@ -28,3 +28,13 @@ Use this script after you cut images by using `cut_img*.py` in the same folder. 
 	`$ cd example/2016-9-17`   
 	`$ python ../choose.py`
 
+* Use `caffe/accuracy_layer.patch` to output the classification result.  
+`patch $caffe_ROOT/src/caffe/layers/accuracy_layer.cpp $backlight_DIR/caffe/accuracy_layer.patch`  
+then re-compile caffe by  
+`$ cd $caffe_ROOT`  
+`$ make all -j4`  
+	* If you want to undo the change:  
+	`patch -R $caffe_ROOT/src/caffe/layers/accuracy_layer.cpp $backlight_DIR/caffe/accuracy_layer.patch`  
+	then re-compile caffe by  
+	`$ cd $caffe_ROOT`  
+	`$ make all -j4`  
