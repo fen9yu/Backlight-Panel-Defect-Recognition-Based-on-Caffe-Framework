@@ -68,70 +68,54 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 							M2 = cv2.getRotationMatrix2D((cols/2,rows/2),180,1)
 							M3 = cv2.getRotationMatrix2D((cols/2,rows/2),270,1)
 							dst0f1=cv2.flip(seg[i][j],0)
-							dst0f2=cv2.flip(seg[i][j],0)
-							dst0f3=cv2.flip(seg[i][j],0)
+							dst0f2=cv2.flip(seg[i][j],1)
 							dst1 = cv2.warpAffine(seg[i][j],M1,(cols,rows))
 							dst1f1=cv2.flip(dst1,0)
 							dst1f2=cv2.flip(dst1,1)
-							dst1f3=cv2.flip(dst1,-1)
 							dst2 = cv2.warpAffine(seg[i][j],M2,(cols,rows))
 							dst2f1=cv2.flip(dst2,0)
 							dst2f2=cv2.flip(dst2,1)
-							dst2f3=cv2.flip(dst2,-1)
 							dst3 = cv2.warpAffine(seg[i][j],M3,(cols,rows))
 							dst3f1=cv2.flip(dst3,0)
 							dst3f2=cv2.flip(dst3,1)
-							dst3f3=cv2.flip(dst3,-1)
 							imgname='1_'+imgname
 							imgname1=imgname+'_0_0'+'.bmp'
 							imgname1flip1=imgname+'_0_1'+'.bmp'
 							imgname1flip2=imgname+'_0_2'+'.bmp'
-							imgname1flip3=imgname+'_0_3'+'.bmp'
 							imgname2=imgname+'_90_0'+'.bmp'
 							imgname2flip1=imgname+'_90_1'+'.bmp'
 							imgname2flip2=imgname+'_90_2'+'.bmp'
-							imgname2flip3=imgname+'_90_3'+'.bmp'
 							imgname3=imgname+'_180_0'+'.bmp'
 							imgname3flip1=imgname+'_180_1'+'.bmp'
 							imgname3flip2=imgname+'_180_2'+'.bmp'
-							imgname3flip3=imgname+'_180_3'+'.bmp'
 							imgname4=imgname+'_270_0'+'.bmp'
 							imgname4flip1=imgname+'_270_1'+'.bmp'
 							imgname4flip2=imgname+'_270_2'+'.bmp'
-							imgname4flip3=imgname+'_270_3'+'.bmp'
 							f.write(imgname1+' '+str(1)+'\n')
 							f.write(imgname1flip1+' '+str(1)+'\n')
 							f.write(imgname1flip2+' '+str(1)+'\n')
-							f.write(imgname1flip3+' '+str(1)+'\n')
 							f.write(imgname2+' '+str(1)+'\n')
 							f.write(imgname2flip1+' '+str(1)+'\n')
 							f.write(imgname2flip2+' '+str(1)+'\n')
-							f.write(imgname2flip3+' '+str(1)+'\n')
 							f.write(imgname3+' '+str(1)+'\n')
 							f.write(imgname3flip1+' '+str(1)+'\n')
 							f.write(imgname3flip2+' '+str(1)+'\n')
-							f.write(imgname3flip3+' '+str(1)+'\n')
 							f.write(imgname4+' '+str(1)+'\n')
 							f.write(imgname4flip1+' '+str(1)+'\n')
 							f.write(imgname4flip2+' '+str(1)+'\n')
-							f.write(imgname4flip3+' '+str(1)+'\n')
 							os.chdir(os.path.split(os.getcwd())[0])
 							cv2.imwrite(imgname1,seg[i][j])
 							cv2.imwrite(imgname1flip1,dst0f1)
 							cv2.imwrite(imgname1flip2,dst0f2)
-							cv2.imwrite(imgname1flip3,dst0f3)
 							cv2.imwrite(imgname2,dst1)
 							cv2.imwrite(imgname2flip1,dst1f1)
 							cv2.imwrite(imgname2flip2,dst1f2)
-							cv2.imwrite(imgname2flip3,dst1f3)
 							cv2.imwrite(imgname3,dst2)
 							cv2.imwrite(imgname3flip1,dst2f1)
 							cv2.imwrite(imgname3flip2,dst2f2)
-							cv2.imwrite(imgname3flip3,dst2f3)
 							cv2.imwrite(imgname4,dst3)
 							cv2.imwrite(imgname4flip1,dst3f1)
 							cv2.imwrite(imgname4flip2,dst3f2)
-							cv2.imwrite(imgname4flip3,dst3f3)
 							os.chdir(origpath)
 						flag=1
 						break
