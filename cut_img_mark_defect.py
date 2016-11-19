@@ -52,7 +52,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			seg.append([])
 			while remain_h >= side:
 				seg[i].append(img[side*i+offset:side*(i+1)+offset,side*j+offset:side*(j+1)+offset])
-				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+str(offset)+'.bmp'
+				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+str(offset)
 				remain_h-=side
 				if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
@@ -71,10 +71,10 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 							dst2 = cv2.warpAffine(seg[i][j],M2,(cols,rows))
 							dst3 = cv2.warpAffine(seg[i][j],M3,(cols,rows))
 							imgname='1_'+imgname
-							imgname1=imgname+'_0'
-							imgname2=imgname+'_90'
-							imgname3=imgname+'_180'
-							imgname4=imgname+'_270'
+							imgname1=imgname+'_0'+'.bmp'
+							imgname2=imgname+'_90'+'.bmp'
+							imgname3=imgname+'_180'+'.bmp'
+							imgname4=imgname+'_270'+'.bmp'
 							f.write(imgname1+' '+str(1)+'\n')
 							f.write(imgname2+' '+str(1)+'\n')
 							f.write(imgname3+' '+str(1)+'\n')
@@ -90,7 +90,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 					elif point[0]>i*side+offset-margin and point[0]<(i+1)*side+offset+margin and point[1]>j*side+offset-margin and point[1]<(j+1)*side+offset+margin:
 						flag=-1
 				if flag == 0:
-					imgname='0_'+imgname
+					imgname='0_'+imgname+'.bmp'
 					f.write(imgname+' '+str(0)+'\n')
 					os.chdir(os.path.split(os.getcwd())[0])
 					cv2.imwrite(imgname,seg[i][j])
