@@ -60,13 +60,30 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				
 				#mark defect for cut images 0/1
 				flag=0
+				rows,cols=seg[i][j].shape
 				for point in defect:
 					if point[0]>i*side+offset and point[0]<(i+1)*side+offset and point[1]>j*side+offset and point[1]<(j+1)*side+offset:
 						if point[0]>i*side+offset+margin and point[0]<(i+1)*side+offset-margin and point[1]>j*side+offset+margin and point[1]<(j+1)*side+offset-margin:
+							M1 = cv2.getRotationMatrix2D((cols/2,rows/2),90,1)
+							M2 = cv2.getRotationMatrix2D((cols/2,rows/2),180,1)
+							M3 = cv2.getRotationMatrix2D((cols/2,rows/2),270,1)
+							dst1 = cv2.warpAffine(seg[i][j],M1,(cols,rows))
+							dst2 = cv2.warpAffine(seg[i][j],M2,(cols,rows))
+							dst3 = cv2.warpAffine(seg[i][j],M3,(cols,rows))
 							imgname='1_'+imgname
-							f.write(imgname+' '+str(1)+'\n')
+							imgname1=imgname+'_0'
+							imgname2=imgname+'_90'
+							imgname3=imgname+'_180'
+							imgname4=imgname+'_270'
+							f.write(imgname1+' '+str(1)+'\n')
+							f.write(imgname2+' '+str(1)+'\n')
+							f.write(imgname3+' '+str(1)+'\n')
+							f.write(imgname4+' '+str(1)+'\n')
 							os.chdir(os.path.split(os.getcwd())[0])
-							cv2.imwrite(imgname,seg[i][j])
+							cv2.imwrite(imgname1,seg[i][j])
+							cv2.imwrite(imgname2,dst1)
+							cv2.imwrite(imgname3,dst2)
+							cv2.imwrite(imgname4,dst3)
 							os.chdir(origpath)
 						flag=1
 						break
