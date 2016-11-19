@@ -57,21 +57,27 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
 					continue
-				os.chdir(os.path.split(os.getcwd())[0])
-				cv2.imwrite(imgname,seg[i][j])
-				os.chdir(origpath)
+				
 				#mark defect for cut images 0/1
 				flag=0
 				for point in defect:
 					if point[0]>i*side+offset and point[0]<(i+1)*side+offset and point[1]>j*side+offset and point[1]<(j+1)*side+offset:
 						if point[0]>i*side+offset+margin and point[0]<(i+1)*side+offset-margin and point[1]>j*side+offset+margin and point[1]<(j+1)*side+offset-margin:
+							imgname='1_'+imgname
 							f.write(imgname+' '+str(1)+'\n')
 						flag=1
+						os.chdir(os.path.split(os.getcwd())[0])
+						cv2.imwrite(imgname,seg[i][j])
+						os.chdir(origpath)
 						break
 					elif point[0]>i*side+offset-margin and point[0]<(i+1)*side+offset+margin and point[1]>j*side+offset-margin and point[1]<(j+1)*side+offset+margin:
 						flag=-1
 				if flag == 0:
+					imgname='0_'+imgname
 					f.write(imgname+' '+str(0)+'\n')
+					os.chdir(os.path.split(os.getcwd())[0])
+					cv2.imwrite(imgname,seg[i][j])
+					os.chdir(origpath)
 				j+=1
 			remain_v-=side
 			remain_h=img.shape[1]
