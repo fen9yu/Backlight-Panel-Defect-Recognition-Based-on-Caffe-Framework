@@ -5,7 +5,7 @@ import re
 import sys
 from diffdetect import imdiff
 
-side=64 #the length of side for cutting images
+side=18 #the length of side for cutting images
 margin=3 #if defects are in the range of margin, it will not be marked neither 0 nor 1. To improve accuracy.
 #the offset of the starting point
 if len(sys.argv)==1:
