@@ -11,9 +11,9 @@ sys.setrecursionlimit(1000000)
 def sub_sort(array,low,high):
     key = array[low]
     while low < high:
-        while low < high and img[array[high][0],array[high][1]] >= img[array[key][0],array[key][1]]:
+        while low < high and img[array[high][0],array[high][1]] >= img[key[0],key[1]]:
             high -= 1
-        while low < high and img[array[high][0],array[high][1]] < img[array[key][0],array[key][1]]:
+        while low < high and img[array[high][0],array[high][1]] < img[key[0],key[1]]::
             array[low] = array[high]
             low += 1
             array[high] = array[low]
