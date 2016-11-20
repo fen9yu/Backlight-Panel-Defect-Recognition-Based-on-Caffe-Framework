@@ -9,15 +9,15 @@ import sys
 sys.setrecursionlimit(1000000)
 
 def sub_sort(array,low,high):
-    key = img[array[low][0],array[low][1]]
+    key = array[low]
     while low < high:
-        while low < high and img[array[high][0],array[high][1]] >= key:
+        while low < high and img[array[high][0],array[high][1]] >= img[array[key][0],array[key][1]]:
             high -= 1
-        while low < high and img[array[high][0],array[high][1]] < key:
+        while low < high and img[array[high][0],array[high][1]] < img[array[key][0],array[key][1]]:
             array[low] = array[high]
             low += 1
             array[high] = array[low]
-    img[array[low][0],array[low][1]] = key
+    array[low] = key
     return low
 
 def quick_sort(array,low,high):
@@ -27,7 +27,7 @@ def quick_sort(array,low,high):
         quick_sort(array,key_index+1,high)
 
 
-k=10
+k=3
 image="images_a1-1001_5_30_2_2.bmp"
 img=cv2.imread(image,0)
 nonblack=[]
