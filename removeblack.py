@@ -14,9 +14,9 @@ def sub_sort(array,low,high):
         while low < high and img[array[high][0],array[high][1]] >= key:
             high -= 1
         while low < high and img[array[high][0],array[high][1]] < key:
-            img[array[low][0],array[low][1]] = img[array[high][0],array[high][1]]
+            array[low] = array[high]
             low += 1
-            img[array[high][0],array[high][1]] = img[array[low][0],array[low][1]]
+            array[high] = array[low]
     img[array[low][0],array[low][1]] = key
     return low
 
@@ -27,7 +27,7 @@ def quick_sort(array,low,high):
         quick_sort(array,key_index+1,high)
 
 
-k=3
+k=10
 image="images_a1-1001_5_30_2_2.bmp"
 img=cv2.imread(image,0)
 nonblack=[]
