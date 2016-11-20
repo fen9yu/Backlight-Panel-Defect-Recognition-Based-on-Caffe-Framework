@@ -41,7 +41,8 @@ temp=sum(nonblack)/len(nonblack)
 for i in black:
 	img[i[0],i[1]]=temp
 	addnoise.pointnoise(i[0],i[1],img,k)
-cv2.imwrite("temp.bmp",img)
 quick_sort(pixel,0,len(pixel)-1)
-for points in pixel:
-	print(img[points[0],points[1]])
+for i in pixel[0:len(pixel)/10]:
+	img[i[0],i[1]]=temp
+	addnoise.pointnoise(i[0],i[1],img,k)
+cv2.imwrite("temp.bmp",img)
