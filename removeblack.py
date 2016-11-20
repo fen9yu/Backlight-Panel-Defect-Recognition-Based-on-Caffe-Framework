@@ -4,6 +4,9 @@ import random
 import cv2
 import os
 import re
+import sys
+
+sys.setrecursionlimit(1000000)
 
 def sub_sort(array,low,high):
     key = img[array[low][0],array[low][1]]
