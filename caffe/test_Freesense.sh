@@ -3,4 +3,4 @@ set -e
 
 
 
-~/caffe/caffe/build/tools/caffe test -model=Freesense_train_test.prototxt -weights=snapshot_10_25_v0_iter_1000.caffemodel $@
+~/caffe/caffe/build/tools/caffe test -model=Freesense_tt_1121.prototxt -weights=snapshot_201611211542_21_trans_iter_218000.caffemodel $@
