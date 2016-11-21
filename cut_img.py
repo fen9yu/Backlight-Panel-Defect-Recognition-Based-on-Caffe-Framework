@@ -3,7 +3,7 @@ import cv2
 import os
 import re
 
-side=64 #the length of side for cutting images
+side=18 #the length of side for cutting images
 
 #get all the files/directory in the current directory
 files=os.listdir("./")
