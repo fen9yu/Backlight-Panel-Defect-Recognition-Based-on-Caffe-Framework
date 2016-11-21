@@ -12,7 +12,9 @@ chmod +x test_Freesense.sh
 echo 'Testing...'
 ./test_Freesense.sh > testresult 2>rubbish
 echo 'Classifying the whole image...'
+echo '-----------------------------------------'
 python classify.py
+echo '-----------------------------------------'
 echo 'Cleaning...'
 rm testresult
 rm rubbish
