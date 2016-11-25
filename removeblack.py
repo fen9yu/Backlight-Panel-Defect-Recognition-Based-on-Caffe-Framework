@@ -13,7 +13,7 @@ def sub_sort(array,low,high):
     while low < high:
         while low < high and img[array[high][0],array[high][1]] >= img[key[0],key[1]]:
             high -= 1
-        while low < high and img[array[high][0],array[high][1]] < img[key[0],key[1]]::
+        while low < high and img[array[high][0],array[high][1]] < img[key[0],key[1]]:
             array[low] = array[high]
             low += 1
             array[high] = array[low]
@@ -28,7 +28,7 @@ def quick_sort(array,low,high):
 
 
 k=3
-image="images_a1-1001_5_30_2_2.bmp"
+image="9.bmp"
 img=cv2.imread(image,0)
 nonblack=[]
 black=[]
@@ -44,8 +44,10 @@ temp=sum(nonblack)/len(nonblack)
 for i in black:
 	img[i[0],i[1]]=temp
 	addnoise.pointnoise(i[0],i[1],img,k)
-quick_sort(pixel,0,len(pixel)-1)
-for i in pixel[0:len(pixel)/10]:
-	img[i[0],i[1]]=temp
-	addnoise.pointnoise(i[0],i[1],img,k)
+if len(black!=0):
+	quick_sort(pixel,0,len(pixel)-1)
+	temp2=sum(pixel[len(pixel)/10:])/len(pixel[len(pixel)/10:])
+	for i in pixel[0:len(pixel)/10]:
+		img[i[0],i[1]]=temp2
+		addnoise.pointnoise(i[0],i[1],img,k)
 cv2.imwrite("temp.bmp",img)
