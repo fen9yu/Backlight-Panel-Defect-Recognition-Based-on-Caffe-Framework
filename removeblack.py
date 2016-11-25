@@ -46,7 +46,10 @@ for i in black:
 	addnoise.pointnoise(i[0],i[1],img,k)
 if len(black)!=0:
 	quick_sort(pixel,0,len(pixel)-1)
-	temp2=sum(img[pixel[len(pixel)/10:][0],pixel[len(pixel)/10:][1]])/len(pixel[len(pixel)/10:])
+	s=0
+	for i in pixel[len(pixel)/10:]:
+		s+=img[i[0],i[1]]
+	temp2=s/len(pixel[len(pixel)/10:])
 	for i in pixel[0:len(pixel)/10]:
 		img[i[0],i[1]]=temp2
 		addnoise.pointnoise(i[0],i[1],img,k)
