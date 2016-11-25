@@ -43,17 +43,18 @@ with open('result.txt', 'r') as f:
 				else:
 					black.append([i,j])
 				pixel.append([i,j]);
-		temp=sum(nonblack)/len(nonblack)
-		for i in black:
-			img[i[0],i[1]]=temp
-			addnoise.pointnoise(i[0],i[1],img,k)
-		if len(black)!=0:
-			quick_sort(pixel,0,len(pixel)-1)
-			s=0
-			for i in pixel[len(pixel)/10:]:
-				s+=img[i[0],i[1]]
-			temp2=s/len(pixel[len(pixel)/10:])
-			for i in pixel[0:len(pixel)/10]:
-				img[i[0],i[1]]=temp2
+		if len(nonblack)!=0:
+			temp=sum(nonblack)/len(nonblack)
+			for i in black:
+				img[i[0],i[1]]=temp
 				addnoise.pointnoise(i[0],i[1],img,k)
-		cv2.imwrite("temp.bmp",img)
+			if len(black)!=0:
+				quick_sort(pixel,0,len(pixel)-1)
+				s=0
+				for i in pixel[len(pixel)/10:]:
+					s+=img[i[0],i[1]]
+				temp2=s/len(pixel[len(pixel)/10:])
+				for i in pixel[0:len(pixel)/10]:
+					img[i[0],i[1]]=temp2
+					addnoise.pointnoise(i[0],i[1],img,k)
+			cv2.imwrite("temp.bmp",img)
