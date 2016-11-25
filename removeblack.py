@@ -31,7 +31,7 @@ k=3
 
 with open('result.txt', 'r') as f:
 	for line in f.readlines():
-		image=line[:-2]
+		image=line[:-3]
 		img=cv2.imread(image,0)
 		nonblack=[]
 		black=[]
