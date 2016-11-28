@@ -57,4 +57,4 @@ with open('result.txt', 'r') as f:
 				for i in pixel[0:len(pixel)/10]:
 					img[i[0],i[1]]=temp2
 					addnoise.pointnoise(i[0],i[1],img,k)
-			cv2.imwrite("temp.bmp",img)
+			cv2.imwrite(image,img)
