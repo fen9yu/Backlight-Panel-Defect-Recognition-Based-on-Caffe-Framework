@@ -66,7 +66,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			prod=np.dot(tm,df)
 			tempdefect=[prod[1][0],prod[0][0]]
 			#calculate the coordinate of the defects after selecting the region of backlight panel
-			defectrot.append([int(round(tempdefect[1])-int(round(up[0])),int(round(tempdefect[0])-int(round(left[1]]))
+			defectrot.append([int(round(tempdefect[1]))-int(round(up[0])),int(round(tempdefect[0])-int(round(left[1])))])
 		defect=defectrot
 
 
