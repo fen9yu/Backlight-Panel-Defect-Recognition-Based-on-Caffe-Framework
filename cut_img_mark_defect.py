@@ -85,9 +85,9 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				seg[i].append(img[side*i+offset:side*(i+1)+offset,side*j+offset:side*(j+1)+offset])
 				imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+str(offset)
 				remain_h-=side
-				if cv2.mean(seg[i][j])[0] < 3.9:
+				'''if cv2.mean(seg[i][j])[0] < 3.9:
 					j+=1
-					continue
+					continue'''
 				
 				#mark defect for cut images 0/1
 				flag=0
