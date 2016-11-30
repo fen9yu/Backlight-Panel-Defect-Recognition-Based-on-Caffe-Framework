@@ -18,7 +18,7 @@ def edge_detect(img):
     left=0
     right=img.shape[1]
 
-    if img.item(center[0],center[1])<=black:
+    if img.item(round(center[0]),round(center[1]))<=black:
         if img.item(center[0],center[1]/2)>black:
             bottom=center[1]
             center[1]/=2
