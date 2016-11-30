@@ -11,7 +11,7 @@ from edge_detect import edge_detect
 from angle_detect import angle_detect
 
 side=18 #the length of side for cutting images
-margin=2 #if defects are in the range of margin, it will not be marked neither 0 nor 1. To improve accuracy.
+margin=3 #if defects are in the range of margin, it will not be marked neither 0 nor 1. To improve accuracy.
 #the offset of the starting point
 if len(sys.argv)==1:
 	offset=0
@@ -63,11 +63,10 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		#calculate the coordinate of the defects after rotation
 		for i in range(len(defect)):
 			df=np.array([[defect[i][1]],[defect[i][0]],[1]])
-			#prod=np.dot(tm,df)
-			#tempdefect=[prod[1][0],prod[0][0]]
-			tempdefect=cv2.transform(df, M0)
+			prod=np.dot(tm,df)
+			tempdefect=[prod[1][0],prod[0][0]]
 			#calculate the coordinate of the defects after selecting the region of backlight panel
-			defectrot.append([tempdefect[0]-up[0],tempdefect[1]-left[1]])
+			defectrot.append([tempdefect[1]-up[0],tempdefect[0]-left[1]])
 		defect=defectrot
 
 
