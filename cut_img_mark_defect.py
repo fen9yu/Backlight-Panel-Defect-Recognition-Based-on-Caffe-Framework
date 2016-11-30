@@ -63,8 +63,9 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		#calculate the coordinate of the defects after rotation
 		for i in range(len(defect)):
 			df=np.array([[defect[i][1]],[defect[i][0]],[1]])
-			prod=np.dot(tm,df)
-			tempdefect=[prod[1][0],prod[0][0]]
+			#prod=np.dot(tm,df)
+			#tempdefect=[prod[1][0],prod[0][0]]
+			tempdefect=cv2.transform(df, M0)
 			#calculate the coordinate of the defects after selecting the region of backlight panel
 			defectrot.append([tempdefect[0]-up[0],tempdefect[1]-left[1]])
 		defect=defectrot
