@@ -3,10 +3,15 @@ import cv2
 import os
 import re
 import sys
+import math
 from diffdetect import imdiff
+from binary_search_edge import search_v_edge
+from binary_search_edge import search_h_edge
+from edge_detect import edge_detect
+from angle_detect import angle_detect
 
 side=18 #the length of side for cutting images
-margin=3 #if defects are in the range of margin, it will not be marked neither 0 nor 1. To improve accuracy.
+margin=2 #if defects are in the range of margin, it will not be marked neither 0 nor 1. To improve accuracy.
 #the offset of the starting point
 if len(sys.argv)==1:
 	offset=0
@@ -38,6 +43,32 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 		image2 = 'b'+re.match(r'^a(\S*?).bmp',image).group(1)+'.png'
 		img2 = cv2.imread(image2,0)
 		defect = imdiff(img,img2)
+
+		#find the angle of the backlight panel with respect to the border of the picture
+		ang=angle_detect(img)
+		#rotate the picture so that the backlight panel is put straight
+		rows,cols=img.shape
+		M0 = cv2.getRotationMatrix2D((cols/2,rows/2),-ang*180/math.pi,1)
+		img = cv2.warpAffine(img,M0,(cols,rows))
+
+		#detect the border of the backlight panel in the rotated picture
+		up,down,left,right=edge_detect(img)
+		#select the region of backlight panel in the picture
+		img=img[up[0]:down[0],left[1]:right[1]]
+
+		#transformation matrix
+		tm=np.array([[math.cos(ang),math.sin(ang),(1-math.cos(ang))*cols/2-math.sin(ang)*rows/2],[-math.sin(ang),math.cos(ang),math.sin(ang)*cols/2+(1-math.cos(ang))*rows/2],[0,0,1]])
+		#coordinate of the defects after rotation
+		defectrot=[]
+		#calculate the coordinate of the defects after rotation
+		for i in range(len(defect)):
+			df=np.array([[defect[i][1]],[defect[i][0]],[1]])
+			prod=np.dot(tm,df)
+			tempdefect=[prod[1][0],prod[0][0]]
+			#calculate the coordinate of the defects after selecting the region of backlight panel
+			defectrot.append([tempdefect[0]-up[0],tempdefect[1]-left[1]])
+		defect=defectrot
+
 
 		#make a directory for each image and go into the directory
 		#os.mkdir('_'+image)
