@@ -46,19 +46,47 @@ for image in files:
 	i=0
 	j=0
 
-	while remain_v >= side:
+	while remain_v > side:
 		seg.append([])
-		while remain_h >= side:
+		while remain_h > side:
 			seg[i].append(img[side*i:side*(i+1),side*j:side*(j+1)])
 			imgname=image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
 			remain_h-=side
-			if cv2.mean(seg[i][j])[0] < 3.9:
+			'''if cv2.mean(seg[i][j])[0] < 3.9:
 				j+=1
-				continue
+				continue'''
 			cv2.imwrite(imgname,seg[i][j])
 			j+=1
+
+		seg[i].append(img[side*i:side*(i+1),img.shape[1]-side:img.shape[1]])
+		imgname=image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
+		remain_h-=side
+		'''if cv2.mean(seg[i][j])[0] < 3.9:
+			j+=1
+			continue'''
+		cv2.imwrite(imgname,seg[i][j])
 		remain_v-=side
 		remain_h=img.shape[1]
 		j=0
 		i+=1
+	seg.append([])
+	while remain_h > side:
+		seg[i].append(img[side*i:side*(i+1),side*j:side*(j+1)])
+		imgname=image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
+		remain_h-=side
+		'''if cv2.mean(seg[i][j])[0] < 3.9:
+			j+=1
+			continue'''
+		cv2.imwrite(imgname,seg[i][j])
+		j+=1
+
+	seg[i].append(img[side*i:side*(i+1),img.shape[1]-side:img.shape[1]])
+	imgname=image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
+	remain_h-=side
+	'''if cv2.mean(seg[i][j])[0] < 3.9:
+		j+=1
+		continue'''
+	cv2.imwrite(imgname,seg[i][j])
+	remain_v-=side
+	remain_h=img.shape[1]
 	#os.chdir("..")
