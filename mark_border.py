@@ -17,19 +17,20 @@ with open('defects.txt','r') as f:
 		m=re.match(r'(.*?)(a.*?)_(\d+)_(\d+)',line)
 		if not os.path.isfile(m.group(2)+'marked.bmp'):
 			shutil.copy(m.group(2)+'.bmp',m.group(2)+'marked.bmp')
-		orgin=cv2.imread(m.group(2)+'marked.bmp',0)
-		ang=angle_detect(orgin)
-		#rotate the picture so that the backlight panel is put straight
-		rows,cols=orgin.shape
-		M0 = cv2.getRotationMatrix2D((cols/2,rows/2),-ang*180/math.pi,1)
-		orgin = cv2.warpAffine(orgin,M0,(cols,rows))
+			orgin=cv2.imread(m.group(2)+'marked.bmp',0)
+			ang=angle_detect(orgin)
+			#rotate the picture so that the backlight panel is put straight
+			rows,cols=orgin.shape
+			M0 = cv2.getRotationMatrix2D((cols/2,rows/2),-ang*180/math.pi,1)
+			orgin = cv2.warpAffine(orgin,M0,(cols,rows))
 
-		#detect the border of the backlight panel in the rotated picture
-		up,down,left,right=edge_detect(orgin)
-		#select the region of backlight panel in the picture
-		orgin=orgin[round(up[0]):round(down[0]),round(left[1]):round(right[1])]
-
-
+			#detect the border of the backlight panel in the rotated picture
+			up,down,left,right=edge_detect(orgin)
+			#select the region of backlight panel in the picture
+			orgin=orgin[int(round(up[0])):int(round(down[0])),int(round(left[1])):int(round(right[1]))]
+			orgin=cv2.cvtColor(orgin,cv2.COLOR_GRAY2BGR)
+		else:
+			orgin=cv2.imread(m.group(2)+'marked.bmp',1)
 		defect=orgin[side*int(m.group(3))+1:side*(int(m.group(3))+1)-1,side*int(m.group(4))+1:side*(int(m.group(4))+1)-1]
 		defect=cv2.copyMakeBorder(defect,1,1,1,1,cv2.BORDER_CONSTANT,value=RED)
 		orgin[side*int(m.group(3)):side*(int(m.group(3))+1),side*int(m.group(4)):side*(int(m.group(4))+1)]=defect
