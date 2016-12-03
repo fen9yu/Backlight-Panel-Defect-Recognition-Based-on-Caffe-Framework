@@ -3,7 +3,7 @@ import cv2
 import os
 import re
 
-side=18 #the length of side for cutting images
+side=64 #the length of side for cutting images
 
 #get all the files/directory in the current directory
 files=os.listdir("./")
@@ -12,8 +12,35 @@ for image in files:
 		continue
 	seg=[]
 	img = cv2.imread(image,0)
-	os.mkdir('_'+image)
-	os.chdir("./_"+image)
+
+	#find the angle of the backlight panel with respect to the border of the picture
+	ang=angle_detect(img)
+	#rotate the picture so that the backlight panel is put straight
+	rows,cols=img.shape
+	M0 = cv2.getRotationMatrix2D((cols/2,rows/2),-ang*180/math.pi,1)
+	img = cv2.warpAffine(img,M0,(cols,rows))
+
+	#detect the border of the backlight panel in the rotated picture
+	up,down,left,right=edge_detect(img)
+	#select the region of backlight panel in the picture
+	img=img[int(round(up[0])):int(round(down[0])),int(round(left[1])):int(round(right[1]))]
+
+	#transformation matrix
+	tm=np.array([[math.cos(ang),math.sin(ang),(1-math.cos(ang))*cols/2-math.sin(ang)*rows/2],[-math.sin(ang),math.cos(ang),math.sin(ang)*cols/2+(1-math.cos(ang))*rows/2],[0,0,1]])
+	#coordinate of the defects after rotation
+	defectrot=[]
+	#calculate the coordinate of the defects after rotation
+	for i in range(len(defect)):
+		df=np.array([[defect[i][0]],[defect[i][1]],[1]])
+		prod=np.dot(tm,df)
+		tempdefect=[prod[1][0],prod[0][0]]
+		#calculate the coordinate of the defects after selecting the region of backlight panel
+		defectrot.append([int(round(tempdefect[1]))-int(round(up[0])),int(round(tempdefect[0])-int(round(left[1])))])
+	defect=defectrot
+
+	#make a directory for each image and go into the directory
+	#os.mkdir('_'+image)
+	#os.chdir("./_"+image)
 	remain_v=img.shape[0]
 	remain_h=img.shape[1]
 	i=0
@@ -34,4 +61,4 @@ for image in files:
 		remain_h=img.shape[1]
 		j=0
 		i+=1
-	os.chdir("..")
+	#os.chdir("..")
