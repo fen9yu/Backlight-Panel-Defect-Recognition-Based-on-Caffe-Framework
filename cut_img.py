@@ -71,7 +71,7 @@ for image in files:
 		i+=1
 	seg.append([])
 	while remain_h > side:
-		seg[i].append(img[side*i:side*(i+1),side*j:side*(j+1)])
+		seg[i].append(img[img.shape[0]-side:img.shape[0],side*j:side*(j+1)])
 		imgname=image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
 		remain_h-=side
 		'''if cv2.mean(seg[i][j])[0] < 3.9:
@@ -80,7 +80,7 @@ for image in files:
 		cv2.imwrite(imgname,seg[i][j])
 		j+=1
 
-	seg[i].append(img[side*i:side*(i+1),img.shape[1]-side:img.shape[1]])
+	seg[i].append(img[img.shape[0]-side:img.shape[0],img.shape[1]-side:img.shape[1]])
 	imgname=image.split('.')[0]+'_'+str(i)+'_'+str(j)+'.bmp'
 	remain_h-=side
 	'''if cv2.mean(seg[i][j])[0] < 3.9:
