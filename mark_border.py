@@ -34,7 +34,10 @@ with open('defects.txt','r') as f:
 		else:
 			orgin=cv2.imread(m.group(2)+'marked.bmp',1)
 		#get the defect part
-		defect=orgin[side*int(m.group(3))+1:side*(int(m.group(3))+1)-1,side*int(m.group(4))+1:side*(int(m.group(4))+1)-1]
+		if side*(int(m.group(3))+1)<=orgin.shape[0] && side*(int(m.group(4))+1)<=orgin.shape[1]:
+			defect=orgin[side*int(m.group(3))+1:side*(int(m.group(3))+1)-1,side*int(m.group(4))+1:side*(int(m.group(4))+1)-1]
+		elif side*int(m.group(3))<orgin.shape[0] && side*int(m.group(4))<orgin.shape[1]:
+			defect=orgin[orgin.shape[0]-side+1:orgin.shape[0]-1,orgin.shape[1]-side+1:orgin.shape[1]-1]
 		#add border to the defect part
 		defect=cv2.copyMakeBorder(defect,1,1,1,1,cv2.BORDER_CONSTANT,value=RED)
 		#put the defect part with border back into the picture
