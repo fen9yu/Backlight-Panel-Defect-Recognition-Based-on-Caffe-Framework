@@ -237,7 +237,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				cv2.imwrite(imgname,seg[i][j])
 				os.chdir(origpath)
 			remain_v-=side
-			remain_h=img.shape[1]
+			remain_h=img.shape[1]-offset
 			j=0
 			i+=1
 			
@@ -398,4 +398,4 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			cv2.imwrite(imgname,seg[i][j])
 			os.chdir(origpath)
 		remain_v-=side
-		remain_h=img.shape[1]
+		remain_h=img.shape[1]-offset
