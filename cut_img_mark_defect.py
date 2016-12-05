@@ -243,7 +243,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 			
 		seg.append([])
 		while remain_h > side:
-			seg[i].append(img[side*i+offset:side*(i+1)+offset,side*j+offset:side*(j+1)+offset])
+			seg[i].append(img[img.shape[0]-side:img.shape[0],side*j+offset:side*(j+1)+offset])
 			imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+str(offset)
 			remain_h-=side
 			'''if cv2.mean(seg[i][j])[0] < 3.9:
@@ -321,7 +321,7 @@ with open(os.path.split(os.getcwd())[0]+'/train.txt','a') as f:
 				os.chdir(origpath)
 			j+=1
 
-		seg[i].append(img[side*i+offset:side*(i+1)+offset,img.shape[1]-side:img.shape[1]])
+		seg[i].append(img[img.shape[0]-side:img.shape[0],img.shape[1]-side:img.shape[1]])
 		imgname=date+'_'+image.split('.')[0]+'_'+str(i)+'_'+str(j)+'+'+str(offset)
 		remain_h-=side
 		'''if cv2.mean(seg[i][j])[0] < 3.9:
